@@ -7,43 +7,45 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<!--NAVIGATION-->
-<nav class="navbar navbar-default navbar-static-top" role="navigation">
-  <div class="container">
-  	<div class="navbar-header">
-  		<a class="navbar-brand" href="#">Treebook</a>
-  	</div>
-  	<div class="collapse navbar-collapse">
-  		<ul class="nav navbar-nav">
-  			<li><%= link_to "Statuses", statuses_path %></li>
-  		</ul>
-      <ul class="nav navbar-nav navbar-right">
-        <% if user_signed_in? %>
-          <li>
-          <%= link_to current_user.full_name, edit_user_registration_path %>        
-          </li>
-          <li>
-          <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>        
-          </li>
-        <% else %>
-          <li>
-            <%= link_to 'Sign Up', new_user_registration_path %>
-          </li>
-          <li>
-          <%= link_to 'Login', new_user_session_path %>  
-          </li>
-        <% end %>
+  <!--NAVIGATION-->
+  <nav class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+     <div class="navbar-header">
+      <a class="navbar-brand" href="#">Treebook</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Statuses", statuses_path %></li>
       </ul>
-  	</div>
+      <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to current_user.full_name, edit_user_registration_path %>
+        </li>
+        <li>
+          <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>        
+        </li>
+      <% else %>
+        <li>
+          <%= link_to 'Sign Up', new_user_registration_path %>
+        </li>
+        <li>
+          <%= link_to 'Login', new_user_session_path %>  
+        </li>
+      <% end %>
+    </ul>
   </div>
+</div>
 </nav>
 <!--MAIN CONTENT-->
 <div class="container">
-<p class="notice"><%= notice %></p>
-<p class="alert"><%= alert %></p>
-
-
-<%= yield %>
+  <% flash.each do |type, message| %>
+    <div class="alert <%= flash_class type %> alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+  <%= yield %>
 
 </div>
 </body>
